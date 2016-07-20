@@ -25,6 +25,8 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBOutlet weak var ratingControl: RatingControl!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    
+    var configuredPresentStyle: UIModalPresentationStyle = .None
     /*
     This value is either passed by `MealTableViewController` in `prepareForSegue(_:sender:)`
     or constructed as part of adding a new meal.
@@ -128,51 +130,114 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
 
         // Did Tap
         
+        //standardSelectPhoto()
+    
+        //demoPresent()
+        
+                demoPresent(.Popover)
+                configuredPresentStyle = .None
+
+//        demoPresent(.Popover)
+//        configuredPresentStyle = .OverFullScreen
+
+//                demoPresent(.Popover)
+//                configuredPresentStyle = .OverFullScreen
+
+//        demoPresent(.Custom)
+//        configuredPresentStyle = .None
+    }
+    
+    //return .OverCurrentContext
+    //return .Popover
+    //return .OverFullScreen
+    //return .None
+    
+    func demoPresent(style: UIModalPresentationStyle) {
+        
+        let vc = ContentPopOverViewController()
+        
+        vc.modalPresentationStyle = style
+        
+        if style == .Popover {
+            //configuredPresentStyle = .None
+            
+            if let pc = vc.popoverPresentationController {
+                pc.permittedArrowDirections = [.Down, .Up]
+                pc.delegate = self
+                
+                var rect = CGRectZero
+                rect.origin = CGPoint(x: 20, y: 20)
+                rect.size = CGSize(width: 50, height: 50)
+                
+                pc.sourceRect = rect
+                pc.sourceView = photoImageView
+            }
+            
+            vc.preferredContentSize = CGSize(width: 200,height: 150)
+            
+        } else if style == .Custom {
+            
+            //configuredPresentStyle = .OverFullScreen
+
+            if let pc = vc.presentationController {
+                pc.delegate = self
+            }
+
+            //vc.preferredContentSize = CGSize(width: 200,height: 150)
+        }
+        
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
+
+    
+    func demoPresent() {
+        
         let vc = ContentPopOverViewController()
         vc.modalPresentationStyle = .Popover
         
-//        var pc = vc.popoverPresentationController
-//        if pc != nil {
-//            pc!.permittedArrowDirections = .Any
-//            pc!.delegate = self
-//        }
-
         if let pc = vc.popoverPresentationController {
-            pc.permittedArrowDirections = .Any
+            pc.permittedArrowDirections = [.Down, .Up]
             pc.delegate = self
             
-//            pc.sourceView = photoImageView
+            var rect = CGRectZero
+            rect.origin = CGPoint(x: 20, y: 20)
+            rect.size = CGSize(width: 50, height: 50)
+            
+            pc.sourceRect = rect
+            pc.sourceView = photoImageView
         }
-
-        //        vc.preferredContentSize = CGSize(width: 100,height: 100)
-
+        
+        vc.preferredContentSize = CGSize(width: 200,height: 150)
+        
         presentViewController(vc, animated: true, completion: nil)
-        
-        
-        
-//        // Select Image inline
-        
-//        nameTextField.resignFirstResponder()
-//        let imagePickerController = UIImagePickerController()
-//        // only allow photos, not taken
-//        imagePickerController.sourceType = .PhotoLibrary
-//        imagePickerController.delegate = self
-//        
-//        presentViewController(imagePickerController, animated: true, completion: nil)
-////        presentViewController(<#T##viewControllerToPresent: UIViewController##UIViewController#>, animated: <#T##Bool#>, completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
-        
     }
+
+    
+    func standardSelectPhoto() {
+        // Select Image inline
+        
+        nameTextField.resignFirstResponder()
+        let imagePickerController = UIImagePickerController()
+        // only allow photos, not taken
+        imagePickerController.sourceType = .PhotoLibrary
+        imagePickerController.delegate = self
+        
+        presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
     
     
     // MARK: presentation controller delegate
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        
+        return configuredPresentStyle
+        
         //return .OverCurrentContext
-        
-        return .OverFullScreen
-        
+        //return .Popover
+        //return .OverFullScreen
         //return .None
-
     }
     
     func presentationController(controller: UIPresentationController,
@@ -200,17 +265,24 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
 
 class ContentPopOverViewController: UIViewController {
     override func viewDidLoad() {
-        self.view.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.15)
+        //self.view.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.15)
         //self.view.backgroundColor = UIColor.blueColor()
     }
     
     override func loadView() {
         let blur = UIBlurEffect(style: UIBlurEffectStyle.Light)
         let v = UIVisualEffectView(effect: blur)
-        
+        v.contentView.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.15)
+        //let v = customView()
         self.view = v
         
     }
-    
 }
+
+class customView: UIView {
+    override func intrinsicContentSize() -> CGSize {
+        return CGSize(width:100,height:50)
+    }
+}
+
 
