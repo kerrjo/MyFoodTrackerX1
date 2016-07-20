@@ -131,17 +131,13 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         // Did Tap
         
         //standardSelectPhoto()
-    
         //demoPresent()
-        
-                demoPresent(.Popover)
-                configuredPresentStyle = .None
 
+//        configuredPresentStyle = .None
 //        demoPresent(.Popover)
-//        configuredPresentStyle = .OverFullScreen
 
-//                demoPresent(.Popover)
-//                configuredPresentStyle = .OverFullScreen
+        configuredPresentStyle = .OverFullScreen
+        demoPresent(.Popover)
 
 //        demoPresent(.Custom)
 //        configuredPresentStyle = .None
