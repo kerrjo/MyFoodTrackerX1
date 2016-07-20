@@ -85,7 +85,7 @@
 		556114A51C86605E009EC13F = {
 			isa = PBXGroup;
 			children = (
-				556114B01C86605F009EC13F /* FoodTracker */,
+				556114B01C86605F009EC13F /* FoodTrackerX1 */,
 				556114C51C86605F009EC13F /* FoodTrackerTests */,
 				556114D01C86605F009EC13F /* FoodTrackerUITests */,
 				556114AF1C86605F009EC13F /* Products */,
@@ -102,7 +102,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		556114B01C86605F009EC13F /* FoodTracker */ = {
+		556114B01C86605F009EC13F /* FoodTrackerX1 */ = {
 			isa = PBXGroup;
 			children = (
 				5561156B1C88CECF009EC13F /* Meal.swift */,
@@ -116,6 +116,7 @@
 				556114BA1C86605F009EC13F /* LaunchScreen.storyboard */,
 				556114BD1C86605F009EC13F /* Info.plist */,
 			);
+			name = FoodTrackerX1;
 			path = FoodTracker;
 			sourceTree = "<group>";
 		};

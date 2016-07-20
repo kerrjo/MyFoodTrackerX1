@@ -258,7 +258,6 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
 
 // --------------------------
 
-
 class ContentPopOverViewController: UIViewController {
     override func viewDidLoad() {
         //self.view.backgroundColor = UIColor.blueColor().colorWithAlphaComponent(0.15)
